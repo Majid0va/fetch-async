@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try and Fetch</title>
+</head>
+<body>
+    <div id="users"></div>
+
+    <script>
+
+const div=document.querySelector("#users");
+window.addEventListener("load",postExternal2)
+
+const url = "https://jsonplaceholder.typicode.com/users";
+         
+    async function postExternal2(url) {
+    
+         
+        try {
+        const result = await fetch(url, {
+            method: "GET"
+        });
+        const data = await result.json();
+        
+        function users(data) {
+            let output = ``;
+
+        for (let user of data) {
+
+            console.log(user.name);
+                
+            output = `
+                 <ul>
+                        <li> ${ user.id } </li>
+                        <li> ${ user.name } </li>
+                        <li> ${ user.email } </li>    
+                 </ul>
+                `;
+
+                div.innerHTML += output;
+            }
+        }
+
+        users(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+postExternal2(url);
+
+ </script>
+</body>
+</html>
